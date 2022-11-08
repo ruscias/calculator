@@ -44,7 +44,7 @@ function main() {
     backspace();
     return 0;
   }
-
+  // put those if statements in something - a function to check the buttons we don't want to log maybe?
   showButtonPressed(this.innerText);
   updateOperationsSinceClear();
 } 
