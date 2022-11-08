@@ -31,6 +31,10 @@ function isButtonToLog(buttonId) {
     backspace();
     return 0;
   }
+
+  if (buttonId === 'equals') {
+    return 0;
+  }
 }
 
 function processButton(buttonPressed) {
