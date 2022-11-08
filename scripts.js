@@ -21,6 +21,11 @@ function backspace() {
   buttonsPressedArray.pop();
 }
 
+function equals() {
+  //do some calculating
+  return 0;
+}
+
 function isButtonToLog(buttonId) {
   if (buttonId === 'clear') {
     clear();
