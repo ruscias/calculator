@@ -1,4 +1,7 @@
 let buttonsPressedArray = [];
+let lastOperationRequested = '';
+let numbersToProcess = [0]
+let currentIndexNumbersToProcess = 0;
 
 const buttons = document.querySelectorAll('button');
 
@@ -22,11 +25,39 @@ function backspace() {
 }
 
 function equals() {
-  //do some calculating
-  return 0;
+  numbersToProcess = [1,2];
+  lastOperationRequested = 'exp';
+  let result = 0;
+  
+  switch (lastOperationRequested) {
+    case 'subtract':
+      result = numbersToProcess[0] - numbersToProcess[1];
+      break;
+    case 'add': 
+      result = numbersToProcess[0] + numbersToProcess[1];
+      break;
+    case 'multiply':
+      result = numbersToProcess[0] * numbersToProcess[1];
+      break;
+    case 'exp':
+      result = numbersToProcess[0] ** numbersToProcess[1];
+      break;
+    case 'divide':
+      result = numbersToProcess[0] / numbersToProcess[1];
+      break;
+    default:
+      result = 0;
+  }
+  numbersToProcess = [0];
+  lastOperationRequested = '';
+  return result;
 }
 
 function isButtonToLog(buttonId) {
+
+//add positive or negative button
+//add percent button
+
   if (buttonId === 'clear') {
     clear();
     return 0;
@@ -38,6 +69,7 @@ function isButtonToLog(buttonId) {
   }
 
   if (buttonId === 'equals') {
+    console.log(equals());
     return 0;
   }
 }
