@@ -53,7 +53,7 @@ function equals() {
   return result;
 }
 
-function isButtonToLog(buttonId) {
+function isButtonToLog(buttonId, buttonClass) {
 
 //add positive or negative button
 //add percent button
@@ -68,14 +68,13 @@ function isButtonToLog(buttonId) {
     return 0;
   }
 
-  if (buttonId === 'equals') {
-    console.log(equals());
+  if (buttonClass === 'number-modifier') {
     return 0;
   }
 }
 
 function processButton(buttonPressed) {
-  if (isButtonToLog(buttonPressed.id) === 0) {
+  if (isButtonToLog(buttonPressed.id,buttonPressed.className) === 0) {
     return 0;
   }
   const divButtonPressed = document.querySelector('div#button-pressed');
