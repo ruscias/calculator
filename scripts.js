@@ -2,8 +2,9 @@ import { add, subtract, multiply, divide, exp  } from '/helpers.js';
 
 
 let buttonsSinceClear = [];
-let buttonsToCommit = [];
+let buttonsToCommit = '';
 let committedButtons = [];
+let numbersToProcess = [];
 let lastOperationRequested = '';
 
 
@@ -20,12 +21,18 @@ function commitButtons() {
     return 0;
 }
 
-function processNumber() {
-  return 0;
+function processNumber(button) {
+  buttonsToCommit += button.id;
 }
 
 function processPeriod() {
-  return 0;
+  if (buttonsToCommit.includes('.')) {
+    return 0;
+  } else if (buttonsToCommit.length === 0) {
+    buttonsToCommit += '0.';
+  } else {
+    buttonsToCommit += '.';  
+  }
 }
 
 function processPositiveOrNegative() {
@@ -38,7 +45,7 @@ function processOperation() {
 
 function updateButtonsToCommit() {
   const divButtonsToCommit= document.querySelector('div.buttons-to-commit');
-  divButtonsToCommit.innerText = buttonsToCommit.join('');
+  divButtonsToCommit.innerText = buttonsToCommit;
 }
 
 function updateButtonsSinceClear() {
@@ -50,10 +57,18 @@ function processButton() {
   //Call a function depending on the button pressed
   //if id = clear
   //if id = backspace
-  //if className = number 
-  //if id = period
+  //handle numbers
+  if (this.className === 'number') {
+    processNumber(this);
+  } 
+  //handle decimals
+  if (this.id === 'period') {
+    processPeriod();
+  }
   //if id = positive-or-negative
   //if className = operation
+
+  //commit buttons to required arrays
 
   //update ui - buttons-to-commit to reflect any needed changes
   updateButtonsToCommit();
