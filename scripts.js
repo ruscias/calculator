@@ -10,7 +10,11 @@ let lastOperationRequested = '';
 
 
 function clear() {
-  return 0;
+  buttonsSinceClear = [];
+  buttonsToCommit = '';
+  committedButtons = [];
+  numbersToProcess = [];
+  lastOperationRequested = '';
 }
 
 function backspace () {
@@ -25,7 +29,7 @@ function processNumber(button) {
   buttonsToCommit += button.id;
 }
 
-function processPeriod() {
+function processDecimal() {
   if (buttonsToCommit.includes('.')) {
     return 0;
   } else if (buttonsToCommit.length === 0) {
@@ -55,20 +59,22 @@ function updateButtonsSinceClear() {
 function processButton() {
   console.log(this);
   //Call a function depending on the button pressed
-  //if id = clear
+  //handle clear
+  if (this.id === 'clear') {
+    clear();
+  }
   //if id = backspace
   //handle numbers
   if (this.className === 'number') {
     processNumber(this);
   } 
   //handle decimals
-  if (this.id === 'period') {
-    processPeriod();
+  if (this.id === 'decimal') {
+    processDecimal();
   }
   //if id = positive-or-negative
   //if className = operation
 
-  //commit buttons to required arrays
 
   //update ui - buttons-to-commit to reflect any needed changes
   updateButtonsToCommit();
