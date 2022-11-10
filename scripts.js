@@ -7,7 +7,6 @@ let numbersToProcess = [];
 let lastOperationRequested = '';
 
 
-
 function clear() {
   buttonsSinceClear = [];
   buttonsToCommit = '';
@@ -31,6 +30,11 @@ function processNumber(button) {
   if (buttonsToCommit.length > 8) {
     return 0;
   }
+
+  if (numbersToProcess.length > 0 && lastOperationRequested === '') {
+    return 0;
+  }
+
   buttonsToCommit += button.id;
 }
 
@@ -54,6 +58,10 @@ function processPositiveOrNegative() {
 
 function processOperation(button) {
 
+  if (buttonsToCommit.lastIndexOf === 0) {
+    return 0;
+  }
+
   if (buttonsToCommit.length > 0) {
     commitNumbers();
   }
@@ -62,6 +70,10 @@ function processOperation(button) {
     return 0;  
   } 
   
+  if (lastOperationRequested.length > 0) {
+    return 0;
+  }
+
   let lastOperationRequestedSymbol = button.innerText;
   if (lastOperationRequested !== '') {
     buttonsSinceClear.pop();
@@ -71,44 +83,48 @@ function processOperation(button) {
 
 }
 
-function makeAnyCalculations(operationRequested) {
+function makeAnyCalculations(operationRequested, button) {
   if (numbersToProcess.length < 2) {
     return 0;
   }
 
   let result = 0;
-  console.log(`operation ${operationRequested}`);
+
+  const a = numbersToProcess[0];
+  const b = numbersToProcess[1];
+
   switch (operationRequested) {
     case 'subtract':
-      result = subtract(numbersToProcess[0], numbersToProcess[1]);
+      result = subtract(a, b);
       break;
     case 'add': 
-      result = add(numbersToProcess[0], numbersToProcess[1]);
+      result = add(a, b);
       break;
     case 'multiply':
-      result = multiply(numbersToProcess[0], numbersToProcess[1]);
+      result = multiply(a, b);
       break;
     case 'exp':
-      result = exp(numbersToProcess[0], numbersToProcess[1]);
+      result = exp(a, b);
       break;
     case 'divide':
-      result = divide(numbersToProcess[0], numbersToProcess[1]);
+      result = divide(a, b);
       break;
     default:
       result = 0;
   }
   clear();
-  console.log(`result ${result}`);
   buttonsToCommit = '';
-  buttonsSinceClear = [result];
+  if (button.id !== 'equals') {
+    buttonsSinceClear = [result, button.innerText];
+    lastOperationRequested = button.id;
+  }
   numbersToProcess = [result];
-  lastOperationRequested = '';
 }
 
 function updateButtonsToCommit() {
   const divButtonsToCommit = document.querySelector('div.buttons-to-commit');
-  if (buttonsToCommit.length === 0) {
-    divButtonsToCommit.innerText = '0';
+  if (buttonsToCommit.length === 0 && numbersToProcess.length > 0) {
+    divButtonsToCommit.innerText = numbersToProcess[0].toString();
   } else {
     divButtonsToCommit.innerText = buttonsToCommit;
   }
@@ -120,7 +136,6 @@ function updateButtonsSinceClear() {
 }
 
 function processButton() {
-  console.log(this);
   //Call a function depending on the button pressed
   //handle clear
   if (this.id === 'clear') {
@@ -147,7 +162,7 @@ function processButton() {
     processOperation(this);
   }
 
-  makeAnyCalculations(lastOperationRequested);
+  makeAnyCalculations(lastOperationRequested, this);
 
   //update ui - buttons-to-commit to reflect any needed changes
   updateButtonsToCommit();
