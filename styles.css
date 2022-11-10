@@ -33,12 +33,12 @@ div.display-container {
   background-color: rgb(224, 255, 197)
 }
 
-div.operations-since-clear {
+div.buttons-since-clear {
   padding: 8px 0 0 16px;
   font-size: 20px;
 }
 
-div.button-pressed {
+div.buttons-to-commit {
   padding-right: 16px;
   font-size: 56px;
   align-self: center;
