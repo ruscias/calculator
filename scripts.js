@@ -21,13 +21,15 @@ function backspace () {
   return 0;
 }
 
-function commitButtons() {
-    buttonsSinceClear.push(buttonsToCommit);
-    buttonsToCommit = '';
+function commitNumbers() {
+  buttonsSinceClear.push(buttonsToCommit);
+  buttonsToCommit = '';
+  numbersToProcess.push(parseFloat(buttonsToCommit));
 }
 
 function processNumber(button) {
   buttonsToCommit += button.id;
+  lastOperationRequested = '';
 }
 
 function processDecimal() {
@@ -44,8 +46,19 @@ function processPositiveOrNegative() {
   return 0;
 }
 
-function processOperation() {
-  commitButtons();
+function processOperation(button) {
+  if (buttonsToCommit.length > 0) {
+    commitNumbers();
+  } else if (button.id === 'equals') {
+    return 0;  
+  } else {
+    lastOperationRequested = button.innerText;
+    buttonsSinceClear.push(lastOperationRequested)
+  }
+}
+
+function makeAnyCalculations() {
+  return 0;
 }
 
 function updateButtonsToCommit() {
@@ -77,9 +90,10 @@ function processButton() {
   //if id = positive-or-negative
   //handle operations
   if (this.className === 'operation') {
-    processOperation();
+    processOperation(this);
   }
 
+  makeAnyCalculations();
 
   //update ui - buttons-to-commit to reflect any needed changes
   updateButtonsToCommit();
