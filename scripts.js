@@ -22,7 +22,8 @@ function backspace () {
 }
 
 function commitButtons() {
-    return 0;
+    buttonsSinceClear.push(buttonsToCommit);
+    buttonsToCommit = '';
 }
 
 function processNumber(button) {
@@ -44,16 +45,17 @@ function processPositiveOrNegative() {
 }
 
 function processOperation() {
-  return 0;
+  commitButtons();
 }
 
 function updateButtonsToCommit() {
-  const divButtonsToCommit= document.querySelector('div.buttons-to-commit');
+  const divButtonsToCommit = document.querySelector('div.buttons-to-commit');
   divButtonsToCommit.innerText = buttonsToCommit;
 }
 
 function updateButtonsSinceClear() {
-  return 0;
+  const divButtonsSinceClear = document.querySelector('div.buttons-since-clear');
+  divButtonsSinceClear.innerText = buttonsSinceClear.join(' ');
 }
 
 function processButton() {
@@ -73,12 +75,16 @@ function processButton() {
     processDecimal();
   }
   //if id = positive-or-negative
-  //if className = operation
+  //handle operations
+  if (this.className === 'operation') {
+    processOperation();
+  }
 
 
   //update ui - buttons-to-commit to reflect any needed changes
   updateButtonsToCommit();
   //update ui - buttons-since-clear to reflect any needed changes 
+  updateButtonsSinceClear();
 
 }
 
