@@ -37,7 +37,8 @@ function processOperation() {
 }
 
 function updateButtonsToCommit() {
-  return 0;
+  const divButtonsToCommit= document.querySelector('div.buttons-to-commit');
+  divButtonsToCommit.innerText = buttonsToCommit.join('');
 }
 
 function updateButtonsSinceClear() {
@@ -55,6 +56,7 @@ function processButton() {
   //if className = operation
 
   //update ui - buttons-to-commit to reflect any needed changes
+  updateButtonsToCommit();
   //update ui - buttons-since-clear to reflect any needed changes 
 
 }
