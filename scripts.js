@@ -28,6 +28,9 @@ function commitNumbers() {
 }
 
 function processNumber(button) {
+  if (buttonsToCommit.length > 8) {
+    return 0;
+  }
   buttonsToCommit += button.id;
 }
 

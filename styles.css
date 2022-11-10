@@ -23,25 +23,24 @@ div.calculator-body {
 
 div.display-container {
   display: flex;
+  flex-direction: column;
   width: 420px;
   height: 14%;
   margin: 16px 0 8px 0;
   padding: 8px;
   border-radius: 4px;
-  justify-content: space-between;
   color: rgb(62, 128, 0);
   background-color: rgb(224, 255, 197)
 }
 
 div.buttons-since-clear {
-  padding: 8px 0 0 16px;
   font-size: 20px;
+  height: 24px;
 }
 
 div.buttons-to-commit {
-  padding-right: 16px;
   font-size: 56px;
-  align-self: center;
+  align-self: flex-end;
 }
 
 div.row-container {
@@ -75,4 +74,8 @@ button.edit {
 button.number-modifier {
   background-color: #b7b7b7ff;
   color: black;
+}
+
+button:active {
+  background-color: rgb(202, 255, 158);
 }
