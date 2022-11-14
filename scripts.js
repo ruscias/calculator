@@ -1,4 +1,4 @@
-import { add, subtract, multiply, divide, exp  } from '/helpers.js';
+import { add, subtract, multiply, divide, exp  } from './helpers.js';
 
 
 let buttonsSinceClear = [];
@@ -58,7 +58,7 @@ function processPositiveOrNegative() {
 
 function processOperation(button) {
 
-  if (buttonsToCommit.lastIndexOf === 0) {
+  if (buttonsToCommit.length === 0) {
     return 0;
   }
 
